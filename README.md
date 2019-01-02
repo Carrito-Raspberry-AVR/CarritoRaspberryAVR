@@ -7,6 +7,7 @@ Proyecto de un carro que puede ser controlado por una plataforma web utilizando 
 <p align="center">
   <img src="Images/block_diagram.png" width="700px" />
 </p>
+
 ## Instrucciones de uso
 
 ### AVR
