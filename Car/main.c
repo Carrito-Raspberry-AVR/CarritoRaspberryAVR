@@ -36,54 +36,49 @@ int main(void)
 	// Inicializar motor driver
 	inicializar_motor_driver();
 
-	/* Habilitar interrupciones globales */
+	// Habilitar interrupciones globales
 	sei();
+
+	// Imprimir Inicialización
+	lcd_imprimir_string("Hola Futuro Estudiante");
 
     while (1) 
     {
 		switch (ESTADO) {
-			// ¿Prende?
-			case Prender:
-				// Conectar PWM
-				TCCR0A = (1<<COM0A1)|(1<<WGM01)|(1<<WGM00); 
-				// Duty cycle mínimo para que se mueva el motor
-				OCR0A = 0x5A; 
-				// Iniciar Timer 0
-				TCCR0B = (0<<CS02)|(1<<CS00); 
+			// ¿Ir hacia adelante?
+			case avanzar_adelante:
+				motor_driver_manejar(m_adelante, velocidad);
 				break;
 
-			// ¿Apaga?
-			case Apagar:
-				// Desconectar PWM
-				TCCR0A = (0<<COM0A1)|(1<<WGM01)|(1<<WGM00); 
-				// Detener Timer 0
-				TCCR0B = (0<<CS02)|(0<<CS00); 
+			// ¿Ir hacia atras?
+			case avanzar_atras:
+				motor_driver_manejar(m_atras, velocidad);
 				break;
 
-			// ¿Velocidad 1?
-			case Velocidad_1:
-				// Cambiar velocidad a Vel_1
-				OCR0A = 0x96; 
+			// ¿Voltear hacia la derecha?
+			case voltear_izquierda:
+				motor_driver_manejar(m_izquierda, velocidad);
 				break;
 
-			// ¿Velocidad 2?
-			case Velocidad_2:
-				// Cambiar velocidad a Vel_2
-				OCR0A = 0xB9; 
+			// ¿Voltear hacia la derecha?
+			case voltear_derecha:
+				motor_driver_manejar(m_derecha, velocidad);
 				break;
 
-			// ¿Velocidad 3?
-			case Velocidad_3:
-				// Cambiar velocidad a Vel_3
-				OCR0A = 0xDC; 
+			// ¿Parar?
+			case parar:
+				motor_driver_manejar(m_parar, 0);
 				break;
 
-			// ¿Velocidad 4?
-			case Velocidad_4:
-				// Cambiar velocidad a Vel_4
-				OCR0A = 0xFF; 
+			// ¿Analizar mensaje?
+			case analizar_mensaje:
 				break;
 
+			// ¿Analizar Ultrasonido?
+			case analizar_ultrasonido:
+				break;
+
+			// No se reconoce estado
 			default:
 				// Nada
 				break;
