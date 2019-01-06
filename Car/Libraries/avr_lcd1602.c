@@ -48,7 +48,7 @@ void inicializar_LCD() {
 
 
 
-void LCD_String_xy(unsigned char row, unsigned char pos, char *str) {
+void lcd_imprimir_string_xy(unsigned char row, unsigned char pos, char *str) {
 	if (row == 1)
 		LCD_Command((pos & 0x0F)|0x80);				/* Command of first row and required position<16 */
 	else if (row == 2)

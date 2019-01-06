@@ -18,7 +18,7 @@
 void LCD_Command(unsigned char cmnd);
 void LCD_Char(unsigned char data);
 void inicializar_LCD();
-void LCD_String_xy(unsigned char, unsigned char, char *);
+void lcd_imprimir_string_xy(unsigned char, unsigned char, char *);
 void LCD_String(char *str);
 void lcd_limpiar();
 void lcd_imprimir_mensaje(char *mensaje);

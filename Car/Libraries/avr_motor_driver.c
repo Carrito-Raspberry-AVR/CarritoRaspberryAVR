@@ -1,5 +1,7 @@
 #include "avr_motor_driver.h"
 
+Estados_motor estado_motor;
+
 void inicializar_motor_driver()
 {
 	// Inicializar Puertos
@@ -10,7 +12,7 @@ void inicializar_motor_driver()
 	
 }
 
-void motor_driver_manejar(estados_motor *estado_motor)
+void motor_driver_manejar(Estados_motor *estado_motor)
 {
 	// estado_motor->velocidad
 	// estado_motor->direccion

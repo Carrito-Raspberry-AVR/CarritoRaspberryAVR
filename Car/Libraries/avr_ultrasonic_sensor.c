@@ -1,7 +1,5 @@
 #include "avr_ultrasonic_sensor.h"
 
-void inicializar_ultrasonido():
-
 void inicializar_ultrasonido()
 {
 	/* Configurar interrupciones externas */

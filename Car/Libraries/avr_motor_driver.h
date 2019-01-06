@@ -12,16 +12,16 @@
 #define Pin_MD_2 7
 
 // Structuras
-struct estados_motor
+struct estado_motor
 {
 	uint8_t velocidad;
 	uint8_t direccion : 2;
-} estado_motor;
+};
+
+typedef struct estado_motor Estados_motor;
 
 // Definir Funciones
 void inicializar_motor_driver();
-void motor_driver_manejar(estados_motor *estado_motor);
-
-
+void motor_driver_manejar(Estados_motor *estado_motor);
 
 #endif 
