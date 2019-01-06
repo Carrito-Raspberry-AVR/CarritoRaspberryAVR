@@ -22,7 +22,7 @@
 // Frecuencia
 #define F_CPU 16000000
 
-// UART 
+// UART Dependencias
 #define BAUD 9600
 #define MY_UBRR F_CPU / 16 / BAUD - 1
 
@@ -45,16 +45,18 @@
 #define direccion_mascara 0b00000011
 
 /* ---------------- Headers y Libraries ---------------- */
-
+// AVR Libraries
 #include <avr/interrupt.h>
 
-#include "Libraries/avr_uart.c"
+// Librerias de Perifericos
 #include "Libraries/avr_motor_driver.c"
-#include "Libraries/avr_ultrasonic_sensor.c"
+#include "Libraries/avr_uart.c"
 #include "Libraries/avr_lcd1602.c"
+#include "Libraries/avr_ultrasonic_sensor.c"
 #include "Libraries/avr_battery_tester.c"
 
 /* ------------ Declarar Varibales Globales ------------ */
+uint8_t dato_recibido;
 uint8_t FLAG;
 uint8_t ESTADO;
 uint16_t ECHO;

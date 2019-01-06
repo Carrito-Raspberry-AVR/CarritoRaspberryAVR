@@ -17,12 +17,10 @@
 
 void LCD_Command(unsigned char cmnd);
 void LCD_Char(unsigned char data);
-void LCD_Init();
+void inicializar_LCD();
 void LCD_String_xy(unsigned char, unsigned char, char *);
 void LCD_String(char *str);
-void LCD_Clear();
-
-
-
+void lcd_limpiar();
+void lcd_imprimir_mensaje(char *mensaje);
 
 #endif 

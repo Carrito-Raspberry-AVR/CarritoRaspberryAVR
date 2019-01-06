@@ -23,16 +23,16 @@
 
 // Inicializar Variables Globales
 FLAG = 0;
-ESTADO = Prender;
+ESTADO = manejar_motor;
 ECHO = 0;
 cuenta_tim1 = 0;
 
 int main(void)
 {
 	// Inicializar ultra-sonido
-	inicializar_ultrasonido();
+	// inicializar_ultrasonido();
 	// Inicializar UART
-	inicializar_uart();
+	inicializar_uart(MY_UBRR);
 	// Inicializar LCD 
 	inicializar_LCD();
 	// Inicializar motor driver
@@ -42,7 +42,11 @@ int main(void)
 	sei();
 
 	// Imprimir Inicialización
-	lcd_imprimir_string("Hola Futuro Estudiante");
+	lcd_imprimir_mensaje("Hola Futuro Estudiante");
+
+	// Variables
+	uint8_t distancia;
+	uint8_t direccion;
 
     while (1) 
     {
@@ -56,7 +60,7 @@ int main(void)
 			case analizar_mensaje:
 				// Tipo de dato: Peticion
 				if (dato_recibido >> 7) {
-					uart_transmitir(distancia);
+					uart_transmitir_char(distancia);
 				}
 				// Tipo de dato: Orden
 				else {
@@ -94,7 +98,18 @@ int main(void)
 				// Nada
 				break;
 		}
+		lcd_limpiar();
+		lcd_imprimir_string_xy(0, 0, "Estado:");
+		lcd_imprimir_string_xy(1, 0, "XD");
     }
+}
+
+ISR(USART_RX_vect)
+{
+	// Guradar dato recibido
+	dato_recibido = UDR0;
+	// Cambiar Estado
+	ESTADO = analizar_mensaje;
 }
 
 ISR(TIMER1_COMPA_vect)
@@ -149,9 +164,4 @@ ISR(INT0_vect)
 			TCNT1 = cuenta_tim1;
 		}
 	}
-}
-
-ISR(USART_RX_vect)
-{
-	ESTADO = UDR0;
 }

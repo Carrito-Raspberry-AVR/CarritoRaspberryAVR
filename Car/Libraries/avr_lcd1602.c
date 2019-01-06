@@ -36,7 +36,7 @@ void LCD_Char(unsigned char data) {
 	_delay_us(2000);								/* WAIT FOR MAKE ENABLE WIDE*/
 }
 
-void LCD_Init() {
+void inicializar_LCD() {
 	LCD_DDDR = 0xFF;
 	_delay_ms(20);									/* WAIT FOR SOME TIME */
 	LCD_Command(0x02);								/* SEND $32 FOR INIT OT 0X02 */
@@ -45,6 +45,8 @@ void LCD_Init() {
 	LCD_Command(0x01);								/* LCD CLEAR */
 	LCD_Command(0x82);								/* SHIFT CURSOR TO WRITE */
 }
+
+
 
 void LCD_String_xy(unsigned char row, unsigned char pos, char *str) {
 	if (row == 1)
@@ -63,8 +65,13 @@ void LCD_String(char *str) {
 	}
 }
 
-void lcd_clear() {
+void lcd_limpiar() {
 	LCD_Command(0x01);
 	_delay_ms(3);
 	LCD_Command(0x80);
+}
+
+void lcd_imprimir_mensaje(char *mensaje)
+{
+	
 }
