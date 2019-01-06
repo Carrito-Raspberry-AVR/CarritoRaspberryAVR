@@ -2,6 +2,8 @@
 * 
 * Carro conectado a Internet
 * 
+* main.c
+*
 * ========================================================
 * Electrónica - UTEC
 *
@@ -30,7 +32,7 @@ int main(void)
 	// Inicializar ultra-sonido
 	inicializar_ultrasonido();
 	// Inicializar UART
-	inicializar_comunicacion();
+	inicializar_uart();
 	// Inicializar LCD 
 	inicializar_LCD();
 	// Inicializar motor driver
@@ -45,37 +47,46 @@ int main(void)
     while (1) 
     {
 		switch (ESTADO) {
-			// ¿Ir hacia adelante?
-			case avanzar_adelante:
-				motor_driver_manejar(m_adelante, velocidad);
-				break;
-
-			// ¿Ir hacia atras?
-			case avanzar_atras:
-				motor_driver_manejar(m_atras, velocidad);
-				break;
-
-			// ¿Voltear hacia la derecha?
-			case voltear_izquierda:
-				motor_driver_manejar(m_izquierda, velocidad);
-				break;
-
-			// ¿Voltear hacia la derecha?
-			case voltear_derecha:
-				motor_driver_manejar(m_derecha, velocidad);
-				break;
-
-			// ¿Parar?
-			case parar:
-				motor_driver_manejar(m_parar, 0);
+			// ¿Manejar motor?
+			case manejar_motor:
+				motor_driver_manejar(&estado_motor);
 				break;
 
 			// ¿Analizar mensaje?
 			case analizar_mensaje:
+				// Tipo de dato: Peticion
+				if (dato_recibido >> 7) {
+					uart_transmitir(distancia);
+				}
+				// Tipo de dato: Orden
+				else {
+					// Extraer Informacion
+					velocidad = (dato_recibido && velocidad_mascara) >> 2;
+					direcccion = dato_recibido && direcccion_mascara;
+					// Configurar Estado de motor
+					estado_motor.velocidad = analizar_velocidad(velocidad);
+					estado_motor.direcccion = analizar_direccion(direcccion);
+				}
+				// Volver a menejar motor
+				ESTADO = manejar_motor;
 				break;
 
 			// ¿Analizar Ultrasonido?
 			case analizar_ultrasonido:
+				// Calcular Distancia
+
+				// Configurar 
+				if (distancia > d_30cm) {
+					estado_motor.velocidad = velocidad_1;
+				} else if (distancia > d_20cm) {
+					estado_motor.velocidad = velocidad_2;
+				} else if (distancia > d_10cm) {
+					estado_motor.velocidad = velocidad_3;
+				} else {
+					estado_motor.velocidad = para;
+				}
+				// Volver a menejar motor
+				ESTADO = manejar_motor;
 				break;
 
 			// No se reconoce estado
