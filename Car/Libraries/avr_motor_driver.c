@@ -4,9 +4,13 @@ Estados_motor estado_motor;
 
 void inicializar_motor_driver()
 {
-	// Inicializar Puertos
+	/* Inicializar Puertos */
 	motor_DDR |= (1<<Pin_MI_1) | (1<<Pin_MI_2) | (1<<Pin_MD_1) | (1<<Pin_MD_2);
-	// Inicializar PWM
+	
+	/* Configurar Timer 0: */
+	// 	- Fast PWM
+	// 	- Normal Port Operation, OC0A desconectado
+	TCCR0A = (0<<COM0A1) | (1<<WGM01) | (1<<WGM00);
 	
 	// Estado inicial
 	
@@ -14,7 +18,34 @@ void inicializar_motor_driver()
 
 void motor_driver_manejar(Estados_motor *estado_motor)
 {
-	// estado_motor->velocidad
-	// estado_motor->direccion
+	switch(estado_motor->direccion){
+		case adelante:
+			motor_derecha_adelante = estado_motor->velocidad;
+			motor_izquierda_adelante = estado_motor->velocidad;
+			motor_derecha_atras = 0;
+			motor_izquierda_atras = 0;
+			break;
+		case atras:
+			motor_derecha_adelante = 0;
+			motor_izquierda_adelante = 0;
+			motor_derecha_atras = estado_motor->velocidad;
+			motor_izquierda_atras = estado_motor->velocidad;
+			break;
+		case izquierda:
+			motor_derecha_adelante = 0;
+			motor_izquierda_adelante = estado_motor->velocidad;
+			motor_derecha_atras = estado_motor->velocidad;
+			motor_izquierda_atras = 0;
+			break;
+		case derecha:
+			motor_derecha_adelante = estado_motor->velocidad;
+			motor_izquierda_adelante = 0;
+			motor_derecha_atras = 0;
+			motor_izquierda_atras = estado_motor->velocidad;
+			break;
+		default:
+			break;
+
+	}
 
 }

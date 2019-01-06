@@ -8,7 +8,8 @@
 #define Pin_Rx 0
 
 // Definir Funciones
-void inicializar_uart(unsigned int ubrr);
-void uart_transmitir_char(char message);
+void inicializar_uart();
+void uart_transmitir_char(unsigned char data);
+void send_text(unsigned char data[]);
 
 #endif 

@@ -24,7 +24,7 @@
 
 // UART Dependencias
 #define BAUD 9600
-#define MY_UBRR F_CPU / 16 / BAUD - 1
+#define BAUDRATE F_CPU / 16 / BAUD - 1
 
 // Estados
 #define manejar_motor 'a'
@@ -45,8 +45,10 @@
 
 /* ---------------- Headers y Libraries ---------------- */
 // AVR Libraries
+#include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include <string.h>
 
 // Librerias de Perifericos
 #include "Libraries/avr_motor_driver.c"
@@ -57,7 +59,4 @@
 
 /* ------------ Declarar Varibales Globales ------------ */
 uint8_t dato_recibido;
-// uint8_t FLAG;
 char ESTADO;
-// uint16_t ECHO;
-// uint16_t cuenta_tim1;

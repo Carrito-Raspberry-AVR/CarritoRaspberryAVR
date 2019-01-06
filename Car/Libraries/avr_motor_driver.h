@@ -11,6 +11,12 @@
 #define Pin_MD_1 6
 #define Pin_MD_2 7
 
+// Direcciones
+#define adelante 0
+#define atras 1
+#define izquierda 2
+#define derecha 3
+
 // Structuras
 struct estado_motor
 {

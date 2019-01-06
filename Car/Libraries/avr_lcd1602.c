@@ -7,14 +7,14 @@
 #include "avr_lcd1602.h"
 
 void LCD_Command(unsigned char cmnd) {
-	LCD_DPRT = ((LCD_DPRT & 0x0f)|(cmnd & 0xf0));		/* SEND COMMAND TO DATA PORT */
+	LCD_DPRT = (LCD_DPRT & 0xF0) | (cmnd >> 4);		/* SEND COMMAND TO DATA PORT */
 	LCD_DPRT &= ~ (1<<LCD_RS);						/* RS = 0 FOR COMMAND */
 	LCD_DPRT |= (1<<LCD_EN);						/* EN = 1 FOR H TO L PULSE */
 	_delay_us(1);									/* WAIT FOR MAKE ENABLE WIDE */
 	LCD_DPRT &= ~(1<<LCD_EN);						/* EN = 0 FOR H TO L PULSE */
 	_delay_us(100);									/* WAIT FOR MAKE ENABLE WIDE */
 	
-	LCD_DPRT = ((LCD_DPRT & 0x0f)|(cmnd << 4));		/* SEND COMMAND TO DATA PORT */
+	LCD_DPRT = (LCD_DPRT & 0xF0) | (cmnd & 0x0F);	/* SEND COMMAND TO DATA PORT */
 	LCD_DPRT |= (1<<LCD_EN);						/* EN = 1 FOR H TO L PULSE */
 	_delay_us(1);									/* WAIT FOR MAKE ENABLE WIDE */
 	LCD_DPRT &= ~(1<<LCD_EN);						/* EN = 0 FOR H TO L PULSE */
@@ -22,14 +22,14 @@ void LCD_Command(unsigned char cmnd) {
 }
 
 void LCD_Char(unsigned char data) {
-	LCD_DPRT = ((LCD_DPRT & 0x0f)|(data & 0xf0));		/* SEND DATA TO DATA PORT */
+	LCD_DPRT = (LCD_DPRT & 0xF0) | (data >> 4);		/* SEND DATA TO DATA PORT */
 	LCD_DPRT |= (1<<LCD_RS);						/* MAKE RS = 1 FOR DATA */
 	LCD_DPRT |= (1<<LCD_EN);						/* EN=0 FOR H TO L PULSE */
 	_delay_us(1);									/* WAIT FOR MAKE ENABLE WIDE */
 	LCD_DPRT &= ~(1<<LCD_EN);						/* EN = 0 FOR H TO L PULSE */
 	_delay_us(100);									/* WAIT FOR MAKE ENABLE WIDE */
 	
-	LCD_DPRT = ((LCD_DPRT & 0x0f)|(data << 4));		/*  */
+	LCD_DPRT = (LCD_DPRT & 0xF0) | (data & 0x0F);
 	LCD_DPRT |= (1<<LCD_EN);						/* EN=0 FOR H TO L PULSE*/
 	_delay_us(1);									/* WAIT FOR MAKE ENABLE WIDE*/
 	LCD_DPRT &= ~(1<<LCD_EN);						/* EN = 0 FOR H TO L PULSE*/
@@ -45,8 +45,6 @@ void inicializar_LCD() {
 	LCD_Command(0x01);								/* LCD CLEAR */
 	LCD_Command(0x82);								/* SHIFT CURSOR TO WRITE */
 }
-
-
 
 void lcd_imprimir_string_xy(unsigned char row, unsigned char pos, char *str) {
 	if (row == 1)
