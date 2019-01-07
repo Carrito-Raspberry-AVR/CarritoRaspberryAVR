@@ -55,7 +55,6 @@
 #include "Libraries/avr_uart.c"
 #include "Libraries/avr_lcd1602.c"
 #include "Libraries/avr_ultrasonic_sensor.c"
-// #include "Libraries/avr_battery_tester.c"
 
 /* ------------ Declarar Varibales Globales ------------ */
 uint8_t dato_recibido;

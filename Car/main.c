@@ -24,7 +24,7 @@
 int main(void)
 {
 	// Inicializar ultra-sonido
-	inicializar_ultrasonido();
+	/*inicializar_ultrasonido();*/
 	// Inicializar UART
 	inicializar_uart();
 	// Inicializar LCD 
@@ -33,15 +33,19 @@ int main(void)
 	inicializar_motor_driver();
 
 	// Imprimir Inicialización
-	lcd_imprimir_mensaje("Hola Futuro Estudiante");
-
+	/*lcd_imprimir_mensaje("Hola Futuro Estudiante");*/
+	/*lcd_limpiar();*/
+	lcd_imprimir_string_xy(0, 0, "Hola Futuro     ");
+	lcd_imprimir_string_xy(1, 0, "Estudiante: ");
+	
+	_delay_ms(1000);
 	// Variables
 	uint8_t distancia;
 	uint8_t direccion;
 	uint8_t velocidad;
 
 	ESTADO = manejar_motor;
-
+	
 	// Habilitar interrupciones globales
 	sei();
 
@@ -62,10 +66,12 @@ int main(void)
 				// Tipo de dato: Orden
 				else {
 					// Extraer Informacion
-					velocidad = (dato_recibido && velocidad_mascara) >> 2;
-					direccion = dato_recibido && direccion_mascara;
+					/*velocidad = (dato_recibido && velocidad_mascara) >> 2;*/
+					velocidad = (dato_recibido && velocidad_mascara);
+					direccion = dato_recibido & direccion_mascara;
 					// Configurar Estado de motor
-					estado_motor.velocidad = analizar_velocidad(velocidad);
+					/*estado_motor.velocidad = analizar_velocidad(velocidad);*/
+					estado_motor.velocidad = velocidad;
 					estado_motor.direccion = direccion;
 				}
 				// Volver a menejar motor
@@ -95,9 +101,8 @@ int main(void)
 				// Nada
 				break;
 		}
-		lcd_limpiar();
-		lcd_imprimir_string_xy(0, 0, "Estado:");
-		lcd_imprimir_string_xy(1, 0, "XD");
+		/*lcd_imprimir_string_xy(0, 0, "Distancia:       ");
+		lcd_imprimir_string_xy(1, 0, "30 cm            ");*/
     }
 }
 
@@ -107,4 +112,20 @@ ISR(USART_RX_vect)
 	dato_recibido = UDR0;
 	// Cambiar Estado
 	ESTADO = analizar_mensaje;
+}
+
+ISR(TIMER0_COMPA_vect)
+{
+	if (estado_timer) {
+		// Cambiar a comparador A
+		
+		// Motores a avanzar
+		
+	} else {
+		// Cambiar a comparador B
+
+		// Motores a parar
+		motor_PORT &= ~((1<<Pin_MD_1) | (1<<Pin_MD_2));
+		motor_PORT &= ~((1<<Pin_MI_1) | (1<<Pin_MI_2));
+	}
 }

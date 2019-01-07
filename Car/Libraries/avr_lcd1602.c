@@ -47,9 +47,9 @@ void inicializar_LCD() {
 }
 
 void lcd_imprimir_string_xy(unsigned char row, unsigned char pos, char *str) {
-	if (row == 1)
+	if (row == 0)
 		LCD_Command((pos & 0x0F)|0x80);				/* Command of first row and required position<16 */
-	else if (row == 2)
+	else if (row == 1)
 		LCD_Command((pos & 0x0F)|0xC0);				/* Command of Second row and required position<16 */
 	
 	LCD_String(str);								/* Call LCD string function */

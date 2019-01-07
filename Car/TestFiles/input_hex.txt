@@ -1,0 +1,26 @@
+- Binary	 : Hex	: Dec
+
+Peticion:
+- 0b10000000 : 0x80 : 128
+
+Orden:
+# 0b0vvvvvdd
+# Velocidad 0 adelante
+- 0b00000000 : 0x00 : 0
+# Velocidad 1 adelante
+- 0b00000100 : 0x04 : 4
+# Velocidad 1 atras
+- 0b00000101 : 0x05 : 5
+# Velocidad 1 izquierda
+- 0b00000110 : 0x06 : 6
+# Velocidad 1 derecha
+- 0b00000111 : 0x07 : 7
+
+# Velocidad 2 adelante
+- 0b00100100 : 0x24 : 36
+# Velocidad 2 atras
+- 0b00100101 : 0x25 : 37
+# Velocidad 2 izquierda
+- 0b00100110 : 0x26 : 38
+# Velocidad 2 derecha
+- 0b00100111 : 0x27 : 39
