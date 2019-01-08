@@ -20,7 +20,7 @@
 // Structuras
 struct estado_motor
 {
-	uint8_t velocidad;
+	uint8_t velocidad : 6;
 	uint8_t direccion : 2;
 };
 

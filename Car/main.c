@@ -24,7 +24,7 @@
 int main(void)
 {
 	// Inicializar ultra-sonido
-	/*inicializar_ultrasonido();*/
+	// inicializar_ultrasonido();
 	// Inicializar UART
 	inicializar_uart();
 	// Inicializar LCD 
