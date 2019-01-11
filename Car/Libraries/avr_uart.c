@@ -31,3 +31,4 @@ void send_text(unsigned char data[])
 		uart_transmitir_char(data[i]);
 	}
 }
+

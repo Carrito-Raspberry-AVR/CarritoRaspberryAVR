@@ -17,11 +17,26 @@
 #define izquierda 2
 #define derecha 3
 
+// Bits Registros
+#define TOIE 0
+#define OCIEA 1
+#define OCIEB 2
+
+// PWM
+#define frecuencia_pwm 10000
+#define calcular_pwm_high(DC) (DC * F_CPU / 100 / frecuencia_pwm / 64)
+#define calcular_pwm_low(DC) ((100-DC)*F_CPU / 100 / frecuencia_pwm / 64)
+
 // Structuras
 struct estado_motor
 {
-	uint8_t velocidad : 6;
-	uint8_t direccion : 2;
+	unsigned int velocidad;
+	uint8_t direccion;
+
+    uint8_t pin_high_1;
+    uint8_t pin_low_1;
+    uint8_t pin_high_2;
+    uint8_t pin_low_2;
 };
 
 typedef struct estado_motor Estados_motor;
@@ -29,5 +44,7 @@ typedef struct estado_motor Estados_motor;
 // Definir Funciones
 void inicializar_motor_driver();
 void motor_driver_manejar(Estados_motor *estado_motor);
+
+unsigned int duty_cycle = 50;
 
 #endif 

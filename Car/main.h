@@ -43,6 +43,7 @@
 #define velocidad_mascara 0b01111100 
 #define direccion_mascara 0b00000011
 
+
 /* ---------------- Headers y Libraries ---------------- */
 // AVR Libraries
 #include <avr/io.h>
@@ -57,5 +58,6 @@
 #include "Libraries/avr_ultrasonic_sensor.c"
 
 /* ------------ Declarar Varibales Globales ------------ */
-uint8_t dato_recibido;
+
 char ESTADO;
+uint8_t dato_recibido;

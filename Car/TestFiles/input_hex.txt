@@ -5,8 +5,10 @@ Peticion:
 
 Orden:
 # 0b0vvvvvdd
+
 # Velocidad 0 adelante
 - 0b00000000 : 0x00 : 0
+
 # Velocidad 1 adelante
 - 0b00000100 : 0x04 : 4
 # Velocidad 1 atras
@@ -24,3 +26,15 @@ Orden:
 - 0b00100110 : 0x26 : 38
 # Velocidad 2 derecha
 - 0b00100111 : 0x27 : 39
+
+# Velocidad 3 adelante : 40
+- 0b0 01010 00 : 0x28 : 40
+# Velocidad 3 atras
+- 0b00100101 : 0x25 : 37
+# Velocidad 3 izquierda
+- 0b00100110 : 0x26 : 38
+# Velocidad 3 derecha
+- 0b00100111 : 0x27 : 39
+
+# Velocidad 4 adelante
+- 0b00111100 : 0x3c : 60
