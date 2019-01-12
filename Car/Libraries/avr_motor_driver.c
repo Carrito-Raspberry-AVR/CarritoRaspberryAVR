@@ -29,6 +29,15 @@ void inicializar_motor_driver()
 
 void motor_driver_manejar(Estados_motor *estado_motor)
 {
+	_delay_ms(1);
+	if (estado_motor->velocidad == 0)
+	{
+		motor_habilitado = 0x00;
+	}
+	else 
+	{
+		motor_habilitado = 0xff;
+	}
 	switch(estado_motor->direccion)
 	{
 		case adelante:
@@ -38,6 +47,8 @@ void motor_driver_manejar(Estados_motor *estado_motor)
 			motor_izquierda_atras = 0;*/
 			// motor_PORT |= (1<<Pin_MI_1) | (1<<Pin_MD_1);
 			// motor_PORT &= ~((1<<Pin_MI_2) | (1<<Pin_MD_2));
+
+			
 			break;
 		case atras:
 			/*motor_derecha_adelante = 0;
@@ -74,20 +85,28 @@ ISR(TIMER0_COMPA_vect)
 	// _delay_us(100);
 
     static char estado_pwm = 0;
-    if (estado_pwm)
-    {   
-        // OCR0A = tiempo_high;
-        OCR0A = calcular_pwm_high(estado_motor.velocidad);
-        PORTD |= (1<<estado_motor.pin_high_1);
-        PORTD |= (1<<estado_motor.pin_high_2);
-    } else {
-        // OCR0A = tiempo_low;
-        OCR0A = calcular_pwm_low(estado_motor.velocidad);
+    // if (motor_habilitado == 0xff) {
+    if (estado_motor.velocidad != 0){
+		if (estado_pwm)
+	    {   
+	        // OCR0A = tiempo_high;
+	        OCR0A = calcular_pwm_high(estado_motor.velocidad);
+	        PORTD |= (1<<estado_motor.pin_high_1);
+	        PORTD |= (1<<estado_motor.pin_high_2);
+	    } else {
+	        // OCR0A = tiempo_low;
+	        OCR0A = calcular_pwm_low(estado_motor.velocidad);
 
-        PORTD &= ~(1<<estado_motor.pin_high_1);
-        PORTD &= ~(1<<estado_motor.pin_high_2);
+	        PORTD &= ~(1<<estado_motor.pin_high_1);
+	        PORTD &= ~(1<<estado_motor.pin_high_2);
+	    }
     }
-    // PORTD = ~PORTD;
+    // else if (motor_habilitado == 0x00){
+    else {
+    	PORTD &= ~(1<<estado_motor.pin_high_1);
+		PORTD &= ~(1<<estado_motor.pin_high_2);
+    }
+
     estado_pwm = ~estado_pwm;
 
 }

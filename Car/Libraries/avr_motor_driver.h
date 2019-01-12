@@ -46,5 +46,6 @@ void inicializar_motor_driver();
 void motor_driver_manejar(Estados_motor *estado_motor);
 
 unsigned int duty_cycle = 50;
+char motor_habilitado = 0xff;
 
 #endif 

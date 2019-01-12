@@ -32,9 +32,9 @@
 #define analizar_ultrasonido 'c'
 
 // Velocidad
-#define velocidad_1 0x01
-#define velocidad_2 0x02
-#define velocidad_3 0x03
+#define velocidad_1 30
+#define velocidad_2 60
+#define velocidad_3 90
 
 // Macros Functions
 #define analizar_velocidad(velocidad) (1*velocidad)
