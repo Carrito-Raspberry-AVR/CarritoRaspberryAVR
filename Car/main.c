@@ -97,11 +97,10 @@ int main(void)
 						estado_motor.direccion = derecha;
 						break;
 					case 'e':
-						estado_motor.velocidad = 0;
-						estado_motor.direccion = adelante;
+						estado_motor.direccion = parar;
 						break;
 					case 'f':
-						uart_transmitir_char(estado_motor.velocidad);
+						uart_transmitir_char(estado_motor.direccion);
 					default:
 						break;
 
@@ -120,9 +119,11 @@ int main(void)
 				} 
 				else if (distancia > 20) {
 					estado_motor.velocidad = velocidad_2;
+					PORTB &= ~(1<<led_pin);
 				} 
 				else if (distancia > 10) {
 					estado_motor.velocidad = velocidad_1;
+					PORTB &= ~(1<<led_pin);
 				} 
 				else {
 					estado_motor.velocidad = 0;
@@ -137,9 +138,13 @@ int main(void)
 				// Nada
 				break;
 		}
+		// char array_str[4];
+		// itoa(distancia, array_str, 10);
 
-		/*lcd_imprimir_string_xy(0, 0|, "Distancia:       ");
-		lcd_imprimir_string_xy(1, 0, "30 cm            ");*/
+		// lcd_imprimir_string_xy(0, 0, "Distancia:       ");
+		// lcd_imprimir_string_xy(1, 0, array_str);
+		// lcd_imprimir_string_xy(1, 0, "30");
+		// LCD_String(" cm    ");
     }
 }
 

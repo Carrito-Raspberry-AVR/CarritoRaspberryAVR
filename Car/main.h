@@ -48,6 +48,7 @@
 // AVR Libraries
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <stdlib.h>
 #include <util/delay.h>
 #include <string.h>
 

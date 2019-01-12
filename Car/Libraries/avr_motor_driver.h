@@ -16,6 +16,7 @@
 #define atras 1
 #define izquierda 2
 #define derecha 3
+#define parar 4
 
 // Bits Registros
 #define TOIE 0
