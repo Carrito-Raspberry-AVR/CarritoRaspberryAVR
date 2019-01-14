@@ -100,7 +100,11 @@ int main(void)
 						estado_motor.direccion = parar;
 						break;
 					case 'f':
-						uart_transmitir_char(estado_motor.direccion);
+						// uart_transmitir_char(estado_motor.direccion);
+						// send_text("a");
+						uart_transmitir_char('5');
+						uart_transmitir_char('5');
+						uart_transmitir_char(0x0a);
 					default:
 						break;
 
@@ -128,6 +132,9 @@ int main(void)
 				else {
 					estado_motor.velocidad = 0;
 					PORTB  |= (1<<led_pin);
+					// Desactivar PCIN1
+					// Timer1 compa
+					// Timer0 compa
 				}
 				// Volver a menejar motor
 				ESTADO = manejar_motor;
@@ -158,28 +165,32 @@ ISR(USART_RX_vect)
 
 ISR(PCINT1_vect)
 {
-    static char interrupcion_pcint = 0xFF;
+	static char interrupcion_pcint = 0xFF;
+	// if (motor_habilitado) {
+		if (interrupcion_pcint) {
+	        cuenta = TCNT1;
+	        TCNT1 = 0;
+	        TIMSK1 = 0;
+	    } else {
+	        echo = TCNT1;
+	        TIMSK1 = (1<<OCIE1A);
+	        ESTADO = analizar_ultrasonido;
+	        // ultrasonido_distancia = distancia_ultrasonic(echo);
+	        /*
+	        if (distancia_ultrasonic(echo) < 20.0) {
+	            PORTB  |= (1<<led_pin);
+	            estado_motor.velocidad = 20;
+	        }
+	        else {
+	            PORTB &= ~(1<<led_pin);
+	            estado_motor.velocidad = 70;
+	        }
+	        */
+	    }
+	    cuenta = cuenta + TCNT1;
+	    interrupcion_pcint = ~interrupcion_pcint;
+	// }
 
-    if (interrupcion_pcint) {
-        cuenta = TCNT1;
-        TCNT1 = 0;
-        TIMSK1 = 0;
-    } else {
-        echo = TCNT1;
-        TIMSK1 = (1<<OCIE1A);
-        ESTADO = analizar_ultrasonido;
-        // ultrasonido_distancia = distancia_ultrasonic(echo);
-        /*
-        if (distancia_ultrasonic(echo) < 20.0) {
-            PORTB  |= (1<<led_pin);
-            estado_motor.velocidad = 20;
-        }
-        else {
-            PORTB &= ~(1<<led_pin);
-            estado_motor.velocidad = 70;
-        }
-        */
-    }
-    cuenta = cuenta + TCNT1;
-    interrupcion_pcint = ~interrupcion_pcint;
+
+
 }
