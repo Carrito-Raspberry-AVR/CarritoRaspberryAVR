@@ -14,8 +14,6 @@
 *	- Joseph Peña
 *	- Amaru Escalante
 *	- Alessio Ghio
-*	- Cristian Amaya
-* 	- David Shatwell
 * =======================================================
 */
 
@@ -23,6 +21,7 @@
 
 int main(void)
 {
+	// Declarar el pin Debugging
 	DDRB = (1<<led_pin);
 	// Inicializar ultra-sonido
 	inicializar_ultrasonido();
@@ -35,7 +34,7 @@ int main(void)
 	inicializar_motor_driver();
 
 	// Imprimir Inicialización
-	/*lcd_imprimir_mensaje("Hola Futuro Estudiante");*/
+	// lcd_imprimir_mensaje("Hola Futuro Estudiante");
 	/*lcd_limpiar();*/
 	lcd_imprimir_string_xy(0, 0, "Hola            ");
 	lcd_imprimir_string_xy(1, 0, "Joseph          ");
@@ -47,11 +46,12 @@ int main(void)
 	uint8_t velocidad;
 
 	ESTADO = manejar_motor;
+
 	estado_motor.velocidad= 50;
 	
-	PORTB  |= (1<<led_pin);
 	// Habilitar interrupciones globales
 	sei();
+	
     while (1) 
     {
     	_delay_us(1);
@@ -74,7 +74,7 @@ int main(void)
 				// 	// Extraer Informacion
 				// 	velocidad = (dato_recibido & velocidad_mascara);
 				// 	// velocidad = (dato_recibido & velocidad_mascara);
-				// 	direccion = dato_recibido & direccion_mascara;
+				// 	direccion =3 dato_recibido & direccion_mascara;
 
 				// 	// Configurar Estado de motor
 				// 	// duty_cycle = dato_recibido;
@@ -190,7 +190,4 @@ ISR(PCINT1_vect)
 	    cuenta = cuenta + TCNT1;
 	    interrupcion_pcint = ~interrupcion_pcint;
 	// }
-
-
-
 }
