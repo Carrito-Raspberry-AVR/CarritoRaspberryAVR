@@ -51,7 +51,7 @@ int main(void)
 	
 	// Habilitar interrupciones globales
 	sei();
-	
+
     while (1) 
     {
     	_delay_us(1);
@@ -63,25 +63,7 @@ int main(void)
 
 			// ¿Analizar mensaje?
 			case analizar_mensaje:
-
-				// // Tipo de dato: Peticion
-				// if (dato_recibido >> 7) {
-				// 	// uart_transmitir_char(estado_motor.velocidad);
-				// 	uart_transmitir_char(distancia);
-				// }
-				// // Tipo de dato: Orden
-				// else {
-				// 	// Extraer Informacion
-				// 	velocidad = (dato_recibido & velocidad_mascara);
-				// 	// velocidad = (dato_recibido & velocidad_mascara);
-				// 	direccion =3 dato_recibido & direccion_mascara;
-
-				// 	// Configurar Estado de motor
-				// 	// duty_cycle = dato_recibido;
-				// 	// estado_motor.direccion = direccion;
-				// 	// estado_motor.velocidad = velocidad;
-				// }
-				// // // Volver a menejar motor
+				// Volver a menejar motor
 				switch (dato_recibido){
 					case 'a':
 						// estado_motor.velocidad = 90;
