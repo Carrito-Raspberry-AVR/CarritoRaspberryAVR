@@ -36,8 +36,8 @@ int main(void)
 	// Imprimir Inicialización
 	// lcd_imprimir_mensaje("Hola Futuro Estudiante");
 	/*lcd_limpiar();*/
-	lcd_imprimir_string_xy(0, 0, "Hola            ");
-	lcd_imprimir_string_xy(1, 0, "Joseph          ");
+	lcd_imprimir_string_xy(0, 0, "Bienvenidos a   ");
+	lcd_imprimir_string_xy(1, 0, "UTEC            ");
 	
 	_delay_ms(1000);
 	// Variables
